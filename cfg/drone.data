@@ -1,0 +1,6 @@
+classes = 1
+train = /media/dcofer/Ubuntu_Data/drone_images/real_sim_608/train.txt
+valid = /media/dcofer/Ubuntu_Data/drone_images/real_sim_608/test.txt
+names = /media/dcofer/Ubuntu_Data/darknet/cfg/drone.names
+backup = backup/
+

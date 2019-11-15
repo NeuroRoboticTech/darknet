@@ -10,7 +10,6 @@
 *.lib
 *.dylib
 mnist/
-data/
 caffe/
 grasp/
 images/
@@ -18,12 +17,12 @@ opencv/
 convnet/
 decaf/
 submission/
-cfg/
 build/darknet/*
 build_*/
 !build/darknet/YoloWrapper.cs
 .fuse*
 *.weights
+weights/*
 build/*.cmake
 build/*.ninja
 build/*.txt
@@ -33,6 +32,9 @@ build/detect_cuda_compute_capabilities.cu
 build/.ninja_deps
 build/.ninja_log
 build/Makefile
+build-release/*
+voc/*
+
 
 # OS Generated #
 .DS_Store*
