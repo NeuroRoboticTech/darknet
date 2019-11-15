@@ -102,7 +102,7 @@ typedef struct tree {
 
 // activations.h
 typedef enum {
-    LOGISTIC, RELU, RELIE, LINEAR, RAMP, TANH, PLSE, LEAKY, ELU, LOGGY, STAIR, HARDTAN, LHTAN, SELU, SWISH
+    LOGISTIC, RELU, RELIE, LINEAR, RAMP, TANH, PLSE, LEAKY, ELU, LOGGY, STAIR, HARDTAN, LHTAN, SELU, SWISH, MISH
 }ACTIVATION;
 
 // parser.h
@@ -190,6 +190,7 @@ struct layer {
     void(*backward_gpu)  (struct layer, struct network_state);
     void(*update_gpu)    (struct layer, int, float, float, float);
     layer *share_layer;
+    int train;
     int batch_normalize;
     int shortcut;
     int batch;
@@ -206,6 +207,7 @@ struct layer {
     int n;
     int max_boxes;
     int groups;
+    int group_id;
     int size;
     int side;
     int stride;
@@ -278,6 +280,7 @@ struct layer {
     int random;
     float ignore_thresh;
     float truth_thresh;
+    float iou_thresh;
     float thresh;
     float focus;
     int classfix;
@@ -347,7 +350,7 @@ struct layer {
     float *col_image;
     float * delta;
     float * output;
-    float * output_sigmoid;
+    float * activation_input;
     int delta_pinned;
     int output_pinned;
     float * loss;
@@ -532,7 +535,7 @@ struct layer {
 
     float * input_antialiasing_gpu;
     float * output_gpu;
-    float * output_sigmoid_gpu;
+    float * activation_input_gpu;
     float * loss_gpu;
     float * delta_gpu;
     float * rand_gpu;
@@ -871,6 +874,7 @@ LIB_API void free_layer(layer);
 LIB_API void free_data(data d);
 LIB_API pthread_t load_data(load_args args);
 LIB_API pthread_t load_data_in_thread(load_args args);
+LIB_API void *load_thread(void *ptr);
 
 // dark_cuda.h
 LIB_API void cuda_pull_array(float *x_gpu, float *x, size_t n);
